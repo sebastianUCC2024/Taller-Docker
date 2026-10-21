@@ -1,0 +1,12 @@
+.git
+.gitignore
+.dockerignore
+target/
+build/
+.idea/
+.vscode/
+*.iml
+*.log
+README.md
+FORENSIC_REPORT.md
+audit_session.log

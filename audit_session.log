@@ -1,0 +1,105 @@
+﻿**********************
+Inicio de la transcripción de Windows PowerShell
+Hora de inicio: 20261021094416
+Nombre de usuario: DESKTOP-TBH2JIE\JUANSE
+Usuario RunAs: DESKTOP-TBH2JIE\JUANSE
+Nombre de la configuración: 
+Máquina: DESKTOP-TBH2JIE (Microsoft Windows NT 10.0.26200.0)
+Aplicación host: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\JUANSE\AppData\Local\Programs\Microsoft VS Code\6d62b1d5da\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Id. de proceso: 17836
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+La transcripción ha comenzado. El archivo de salida es audit_session.log
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker build --build-arg STUDENT_ID="914988" -t eco-air-backend:1.0.0 .
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker run -d --name eco_air_active -p 8080:8080 eco-air-backend:1.0.0 sleep 3600
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker inspect --format='{{.Id}}' eco-air-backend:1.0.0
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker history --human --format "table {{.Size}}`t{{.CreatedBy}}" eco-air-backend:1.0.0
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker top eco_air_active -o pid,user,comm
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker run -d --name eco_air_active -p 8080:8080 eco-air-backend:1.0.0 sleep 3600
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker top eco_air_active -o pid,user,comm
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker ps
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker run -d --name eco_air_active -p 8081:8080 eco-air-backend:1.0.0
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker top eco_air_active -o pid,user,comm
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>cls
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker run -d --name eco_air_active -p 8080:8080 --entrypoint sh eco-air-backend:1.0.0 -c "java $JAVA_OPTS -jar app.jar & sleep 3600"
+docker: Error response from daemon: Conflict. The container name "/eco_air_active" is already in use by container "074918f
+cb7c13c575b35142439d1aef666cb0cc22f8b50b2f335751678eaa66d". You have to remove (or rename) that container to be able to re
+use that name.
+
+Run 'docker run --help' for more information
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker rm -f eco_air_active
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker run -d --name eco_air_active -p 8080:8080 --entrypoint sh eco-air-backend:1.0.0 -c "java $JAVA_OPTS -jar app.jar & sleep 3600"
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker top eco_air_active -o pid,user,comm
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker exec eco_air_active env | Select-String "OPERATOR_ID"
+
+OPERATOR_ID=914988
+
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker exec eco_air_active touch /etc/crontab_fake
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker exec eco_air_active which mvn
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker exec eco_air_active find / -name "*.java"
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker run -d --name eco_air_crash -m 48m --entrypoint sh eco-air-backend:1.0.0 -c "java $JAVA_OPTS -jar app.jar"
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>Start-Sleep -Seconds 5
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker inspect eco_air_crash --format='Status: {{.State.Status}} | ExitCode: {{.State.ExitCode}} | OOMKilled: {{.State.OOMKilled}}'
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker rm -f eco_air_crash
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>docker stats --no-stream eco_air_active
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cTaller-DockerPS C:\Taller-Docker> ]633;B
+PS>Stop-Transcript
+**********************
+Fin de la transcripción de Windows PowerShell
+Hora de finalización: 20261021095456
+**********************
