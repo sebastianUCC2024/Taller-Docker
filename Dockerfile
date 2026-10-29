@@ -1,34 +1,27 @@
-FROM maven:3.9.6-eclipse-temurin-17-alpine AS builder
+# Etapa 1: Compilación (Build)
+FROM maven:3.9-eclipse-temurin-17-alpine AS builder
+WORKDIR /app
 
-WORKDIR /build
-
-ARG STUDENT_ID
-ENV STUDENT_ID=${STUDENT_ID}
-
+# Copiar configuración de dependencias
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
+RUN mvn dependency:resolve -B || true
 
+# Copiar código fuente y compilar omitiendo pruebas para velocidad
 COPY src ./src
 RUN mvn package -DskipTests
 
+# Etapa 2: Imagen final liviana de ejecución
 FROM eclipse-temurin:17-jre-alpine
-
-ARG STUDENT_ID
-ENV OPERATOR_ID=${STUDENT_ID}
-
-ENV JAVA_OPTS="-XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
-
-RUN addgroup -S -g 10001 sensorgroup && \
-    adduser -S -u 10001 -G sensorgroup sensor_user
-
 WORKDIR /app
 
-COPY --from=builder /build/target/*.jar app.jar
+# Copiar el ejecutable generado
+COPY --from=builder /app/target/*.jar app.jar
 
-RUN chown -R sensor_user:sensorgroup /app
-
-USER sensor_user
-
+# Exponer el puerto del backend (8080)
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# Ejecutar con un usuario sin privilegios por seguridad
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
